@@ -4,4 +4,5 @@
     <string name="failed_to_insert_data">Failed to insert data</string>
     <string name="data_inserted_successfully">Data inserted successfully</string>
     <string name="data_not_inserted">Data not inserted</string>
+    <string name="city_not_found_locally">City Not Found Locally</string>
 </resources>

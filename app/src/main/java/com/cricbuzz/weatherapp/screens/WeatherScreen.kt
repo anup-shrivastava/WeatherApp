@@ -115,7 +115,7 @@ fun WeatherScreen(modifier: Modifier, viewModel: WeatherViewModel = hiltViewMode
                 emptyMessage = "No Forecast Found"
             )
         } else {
-            CustomText("Search by city to get weather data")
+            CustomText("Search city to get weather data")
         }
     }
 }

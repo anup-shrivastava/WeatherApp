@@ -11,6 +11,6 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrReplace(cache: WeatherEntity): Long?
 
-    @Query("SELECT * FROM weather_data WHERE city = :city")
+    @Query("SELECT * FROM weather_data WHERE city = :city ORDER BY timestamp DESC")
     suspend fun getWeatherForCity(city: String): WeatherEntity?
 }

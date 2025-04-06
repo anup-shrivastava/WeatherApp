@@ -21,8 +21,15 @@ class WeatherRepository @Inject constructor(
             if (response.isSuccessful && result != null) {
                 Result.success(result)
             } else {
-                Result.failure(Exception(resourceProvider.getString(R.string.failed_to_fetch_weather_data)))
-            }
+                val errorMessage = try {
+                    val errorJson = response.errorBody()?.string()
+                    val gson = Gson()
+                    val errorResponse = gson.fromJson(errorJson, WeatherForecastResponse::class.java)
+                    errorResponse?.message ?: resourceProvider.getString(R.string.failed_to_fetch_weather_data)
+                } catch (e: Exception) {
+                    resourceProvider.getString(R.string.failed_to_fetch_weather_data)
+                }
+                Result.failure(Exception(errorMessage))            }
         } catch (ex: Exception) {
             ex.printStackTrace()
             Result.failure(Exception(resourceProvider.getString(R.string.failed_to_fetch_weather_data)))
@@ -38,7 +45,7 @@ class WeatherRepository @Inject constructor(
             if (response!=null) {
                 Result.success(response)
             } else {
-                Result.failure(Exception(resourceProvider.getString(R.string.failed_to_fetch_weather_data)))
+                Result.failure(Exception(resourceProvider.getString(R.string.city_not_found_locally)))
             }
         } catch (ex: Exception) {
             ex.printStackTrace()

@@ -87,7 +87,6 @@ class WeatherViewModel @Inject constructor(
                 e.printStackTrace()
             } finally {
                 _loading.value = false
-                _message.value = null
             }
         }
     }
@@ -97,26 +96,19 @@ class WeatherViewModel @Inject constructor(
 
 fun List<ForecastItem>.getThreeDayAverages(): List<ForecastItem> {
     return this
-        .filter { it.dt != null && it.main?.temp != null } // safeguard nulls
+        .filter { it.dt != null && it.main?.temp != null }
         .groupBy { item ->
-            // Group by date (yyyy-MM-dd)
             val date = Date(item.dt!! * 1000)
             SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date)
         }
         .mapNotNull { (_, itemsForDay) ->
             val avgTemp = itemsForDay.mapNotNull { it.main?.temp }.averageOrNull() ?: return@mapNotNull null
-
-            // Return the first item but update temp to average
             itemsForDay.first().copy(
                 main = itemsForDay.first().main?.copy(temp = avgTemp)
             )
         }
         .take(4)
 }
-
-
-
-
 
 fun List<Double>.averageOrNull(): Double? {
     return if (this.isEmpty()) null else this.average()
