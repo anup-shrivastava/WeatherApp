@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="failed_to_fetch_weather_data">Failed to fetch weather data</string>
+    <string name="failed_to_insert_data">Failed to insert data</string>
+    <string name="data_inserted_successfully">Data inserted successfully</string>
+    <string name="data_not_inserted">Data not inserted</string>
+</resources>
